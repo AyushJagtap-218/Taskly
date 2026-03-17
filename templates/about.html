@@ -1,0 +1,111 @@
+{% extends 'base.html' %}
+{% block title %}
+    About
+{% endblock title %}
+{% block body %}
+
+<div class="container my-5">
+    <div class="row">
+        <div class="col-md-8 offset-md-2">
+            <h1 class="mb-4">About MyTodo</h1>
+            
+            <div class="card mb-4">
+                <div class="card-body">
+                    <h5 class="card-title">What is MyTodo?</h5>
+                    <p class="card-text">
+                        MyTodo is a simple yet powerful task management application built with Flask and SQLAlchemy. 
+                        It allows you to create, manage, and organize your daily tasks with ease. Whether you're 
+                        tracking personal projects or managing work-related tasks, MyTodo helps you stay organized 
+                        and focused on what matters most.
+                    </p>
+                </div>
+            </div>
+
+            <div class="card mb-4">
+                <div class="card-body">
+                    <h5 class="card-title">Key Features</h5>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item">
+                            <strong>Create Tasks:</strong> Add new todos with a title and detailed description to track what needs to be done.
+                        </li>
+                        <li class="list-group-item">
+                            <strong>Update Tasks:</strong> Edit your existing tasks whenever you need to change details or mark progress.
+                        </li>
+                        <li class="list-group-item">
+                            <strong>Delete Tasks:</strong> Remove completed or unnecessary tasks to keep your list clean and focused.
+                        </li>
+                        <li class="list-group-item">
+                            <strong>Priority Management:</strong> Organize your tasks by priority using the intuitive drag feature. 
+                            Move tasks up to increase priority or down to decrease it.
+                        </li>
+                        <li class="list-group-item">
+                            <strong>Sorted Display:</strong> All tasks are automatically sorted by priority, so you always see what's most important first.
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="card mb-4">
+                <div class="card-body">
+                    <h5 class="card-title">How to Use</h5>
+                    <ol class="list-group list-group-numbered">
+                        <li class="list-group-item">
+                            <strong>Home Page:</strong> Go to the Home page to add new tasks. Enter a title and description, then click Submit.
+                        </li>
+                        <li class="list-group-item">
+                            <strong>View Tasks:</strong> All your tasks are displayed in a table showing the title, description, and creation time.
+                        </li>
+                        <li class="list-group-item">
+                            <strong>Update Task:</strong> Click the "Update" button next to any task to edit its details.
+                        </li>
+                        <li class="list-group-item">
+                            <strong>Delete Task:</strong> Click the "Delete" button to remove a task from your list.
+                        </li>
+                        <li class="list-group-item">
+                            <strong>Change Priority:</strong> Visit the "Change Priority" page to reorganize your tasks by moving them up or down based on importance.
+                        </li>
+                    </ol>
+                </div>
+            </div>
+
+            <div class="card mb-4">
+                <div class="card-body">
+                    <h5 class="card-title">Technology Stack</h5>
+                    <p class="card-text">
+                        MyTodo is built using modern, reliable technologies:
+                    </p>
+                    <ul>
+                        <li><strong>Flask:</strong> A lightweight Python web framework for building the application.</li>
+                        <li><strong>SQLAlchemy:</strong> An Object-Relational Mapping (ORM) library for database management.</li>
+                        <li><strong>SQLite:</strong> A simple and efficient database for storing your tasks.</li>
+                        <li><strong>Bootstrap 4:</strong> A responsive CSS framework for a clean and intuitive user interface.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="card mb-4">
+                <div class="card-body">
+                    <h5 class="card-title">Get Started</h5>
+                    <p class="card-text">
+                        Ready to organize your tasks? Head over to the <a href="/" class="btn btn-outline-dark btn-sm mx-1">Home</a> 
+                        page and start adding your todos today. Your tasks are stored locally and will persist between sessions.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Optional JavaScript; choose one of the two! -->
+
+<!-- Option 1: jQuery and Bootstrap Bundle (includes Popper) -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+    integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+    crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx"
+    crossorigin="anonymous"></script>
+
+{% endblock body %}
+
+

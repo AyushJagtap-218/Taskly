@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% block title %}
+    Update
+{% endblock title %}
+{% block body %}
+
+    <div class="container my-3"> <!-- class="container-fluid" : To use complete width of the webpage -->
+    <h2>Update Todo</h2>
+    <form action="/update/{{todo.sno}}" method="POST">
+        <div class="form-group">
+            <label for="title">Todo title</label>
+            <input type="text" class="form-control" name="title" id="title" value="{{todo.title}}" aria-describedby="emailHelp">
+        </div>
+        <div class="form-group">
+            <label for="desc">Todo Description</label>
+            <input type="text" class="form-control" name="desc" id="desc" value="{{todo.desc}}">
+        </div>
+        <div class="form-group">
+            <label for="category_id">Category</label>
+            <select class="form-control" name="category_id" id="category_id">
+                <option value="">-- Select Category --</option>
+                {% for category in all_categories %}
+                    <option value="{{ category.id }}" {% if todo.category_id == category.id %}selected{% endif %}>{{ category.name }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <button type="submit" class="btn btn-dark">Update</button>
+    </form>
+</div>
+
+{% endblock body %}
+
+

@@ -1,0 +1,169 @@
+{% extends 'base.html' %}
+{% block title %}
+    Change Priority
+{% endblock title %}
+{% block body %}
+
+<style>
+    .draggable-row {
+        cursor: move;
+    }
+    
+    .draggable-row.dragging {
+        opacity: 0.5;
+        background-color: #e8e8e8 !important;
+    }
+    
+    .draggable-row.drag-over {
+        border-top: 3px solid #007bff;
+        background-color: #f0f8ff;
+    }
+    
+    .drag-handle {
+        cursor: grab;
+        font-size: 1.2em;
+        color: #6c757d;
+        user-select: none;
+    }
+    
+    .drag-handle:active {
+        cursor: grabbing;
+    }
+</style>
+
+<div class="container my-3">
+    <h2>Change Todo Priority</h2>
+    <p class="text-muted">Drag and drop todos to adjust their priority. Todos at the top have the highest priority.</p>
+    
+    {% if has_unsaved_changes %}
+    <div class="alert alert-warning alert-dismissible fade show" role="alert">
+        <strong>⚠️ Unsaved Changes!</strong> Your priority changes are pending. Click <strong>Confirm</strong> to save them, or <strong>Cancel</strong> to discard.
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    {% endif %}
+    
+    {% if allTodo|length == 0 %}
+    <div class="alert alert-dark" role="alert">
+        No todos found. <a href="/">Go back to add todos</a>
+    </div>
+    {% else %}
+    <table class="table table-hover">
+        <thead class="thead-dark">
+            <tr>
+                <th scope="col" style="width: 60px;"></th>
+                <th scope="col">Priority</th>
+                <th scope="col">Title</th>
+                <th scope="col">Description</th>
+            </tr>
+        </thead>
+        <tbody id="todoTableBody">
+            {% for todo in allTodo %}
+            <tr class="draggable-row" draggable="true" data-sno="{{ todo.sno }}">
+                <td><span class="drag-handle">⋮⋮</span></td>
+                <td><strong>{{ loop.index }}</strong></td>
+                <td>{{ todo.title }}</td>
+                <td>{{ todo.desc }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <div class="mt-4">
+        <form method="POST" id="confirmForm" style="display:inline;">
+            <input type="hidden" name="action" value="confirm">
+            <input type="hidden" name="new_order" id="newOrderInput" value="">
+            <button type="submit" class="btn btn-success btn-lg">✓ Confirm Changes</button>
+        </form>
+        <form method="POST" style="display:inline;">
+            <input type="hidden" name="action" value="cancel">
+            <button type="submit" class="btn btn-secondary btn-lg">✗ Cancel</button>
+        </form>
+    </div>
+    {% endif %}
+</div>
+
+<script>
+    let draggedElement = null;
+    
+    function setupDragAndDrop() {
+        const draggableRows = document.querySelectorAll('.draggable-row');
+        
+        draggableRows.forEach(row => {
+            row.addEventListener('dragstart', (e) => {
+                draggedElement = row;
+                row.classList.add('dragging');
+                e.dataTransfer.effectAllowed = 'move';
+            });
+            
+            row.addEventListener('dragend', () => {
+                row.classList.remove('dragging');
+                draggableRows.forEach(r => r.classList.remove('drag-over'));
+                updatePriorityNumbers();
+                updateNewOrderInput();
+            });
+            
+            row.addEventListener('dragover', (e) => {
+                e.preventDefault();
+                e.dataTransfer.dropEffect = 'move';
+                
+                if (row !== draggedElement) {
+                    row.classList.add('drag-over');
+                }
+            });
+            
+            row.addEventListener('dragleave', () => {
+                row.classList.remove('drag-over');
+            });
+            
+            row.addEventListener('drop', (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                
+                if (row !== draggedElement) {
+                    const tbody = row.parentElement;
+                    const allRows = Array.from(tbody.querySelectorAll('.draggable-row'));
+                    const draggedIndex = allRows.indexOf(draggedElement);
+                    const targetIndex = allRows.indexOf(row);
+                    
+                    if (draggedIndex < targetIndex) {
+                        row.insertAdjacentElement('afterend', draggedElement);
+                    } else {
+                        row.insertAdjacentElement('beforebegin', draggedElement);
+                    }
+                }
+                row.classList.remove('drag-over');
+            });
+        });
+    }
+    
+    function updatePriorityNumbers() {
+        const rows = document.querySelectorAll('.draggable-row');
+        rows.forEach((row, index) => {
+            const priorityCell = row.querySelector('td:nth-child(2) strong');
+            if (priorityCell) {
+                priorityCell.textContent = index + 1;
+            }
+        });
+    }
+    
+    function updateNewOrderInput() {
+        const rows = document.querySelectorAll('.draggable-row');
+        const newOrder = Array.from(rows).map(row => row.dataset.sno).join(',');
+        document.getElementById('newOrderInput').value = newOrder;
+    }
+    
+    // Initialize drag and drop on page load
+    document.addEventListener('DOMContentLoaded', () => {
+        setupDragAndDrop();
+    });
+    
+    // Handle confirm form submission
+    document.getElementById('confirmForm').addEventListener('submit', (e) => {
+        updateNewOrderInput();
+    });
+</script>
+
+{% endblock body %}
+

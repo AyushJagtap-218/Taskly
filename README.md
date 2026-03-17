@@ -9,7 +9,9 @@ A simple and interactive Todo application built with Flask, SQLAlchemy, and Boot
 - Live search filter by title or description
 - Category support (Work, Personal)
 - Category-based filtering
-- Task priority management with a dedicated reorder page
+- Task priority management with a dedicated reorder 
+
+
 
 ## Tech Stack
 
@@ -56,6 +58,19 @@ python app.py
 ```text
 http://127.0.0.1:5000/
 ```
+
+## Screenshots
+
+### Home Page
+<p align="center">
+	<img src="screenshots/home.png" width="800" alt="Taskly Home Page"/>
+</p>
+
+### Change Priority
+![Priority Page](screenshots/priority.png)
+
+### Search Feature
+![Search](screenshots/search.png)
 
 ## Notes
 

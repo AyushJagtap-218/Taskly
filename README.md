@@ -1,4 +1,4 @@
-# Flask Todo App
+# Taskly
 
 A simple and interactive Todo application built with Flask, SQLAlchemy, and Bootstrap.
 
